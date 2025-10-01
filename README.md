@@ -1,22 +1,23 @@
 # HigherSelfStudio
 
-Professional, moody landing experience for HigherSelfStudio with a Vercel-ready structure, Neon database integration stubs, and static assets under `public/`.
+Sleek, moody Higher Self Studio site skeleton inspired by [higherselfstudio.co](https://higherselfstudio.co) with Neon-backed API stubs, Vercel routing, and all static pages served from `public/`.
 
 ## Project structure
 
 ```
 ├── api/                 # Vercel serverless functions (Neon-backed)
-│   ├── courses.js
-│   ├── products.js
-│   └── waitlist.js
-├── public/              # Static site served by Vercel
+│   ├── courses.js       # Sample query for future program listings
+│   ├── products.js      # Sample query for digital suite
+│   └── waitlist.js      # Opt-in capture powered by Neon
+├── public/              # Static marketing site
 │   ├── assets/
-│   │   ├── css/main.css
-│   │   └── js/main.js
-│   ├── account.html
-│   ├── courses.html
-│   ├── index.html
-│   └── products.html
+│   │   ├── css/main.css # Luxury serif/sans styling, motion, gradients
+│   │   └── js/main.js   # Scroll reveals, nav toggle, form stubs
+│   ├── index.html       # Homepage — hero, framework, freebie, CTA
+│   ├── about.html       # Val's hero journey + modality fusion
+│   ├── programs.html    # Flagship program, digital suite, 1:1
+│   ├── resources.html   # Sacred AF download + newsletter hub
+│   └── contact.html     # Application-style inquiry form
 ├── src/
 │   └── lib/db.js        # Neon client helper + error boundary
 ├── package.json
@@ -70,7 +71,7 @@ The static site is served from `public`, while API requests (e.g. `POST /api/wai
 
 ## Next steps
 
-- Hook the `cta-form` submission on `index.html` to `POST /api/waitlist`.
-- Replace placeholder links with production product/course slugs.
-- Add analytics, payment integrations, and auth providers as needed.
-- Layer in automated deployments (GitHub Actions) to preview branches on Vercel.
+- Wire the `cta-form` components (home, resources, programs) to `POST /api/waitlist` once the Neon table is live.
+- Map the contact application form to a secure API endpoint or external CRM.
+- Replace placeholder social URLs with live handles, swap the stock imagery, and embed brand assets.
+- Add analytics, SEO meta expansions, and motion polish (GSAP/Framer Motion) as desired.
