@@ -20,6 +20,13 @@ export const withErrorBoundary = (fn) => async (req, res) => {
     return await fn(req, res);
   } catch (error) {
     console.error('[HigherSelfStudio] API error', error);
-    res.status(500).json({ message: 'Internal error, please retry shortly.' });
+    const status = error.statusCode || error.status || 500;
+    const message =
+      status === 401
+        ? 'Unauthorized'
+        : status === 400
+          ? error.message || 'Bad request'
+          : 'Internal error, please retry shortly.';
+    res.status(status).json({ message });
   }
 };

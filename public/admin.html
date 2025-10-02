@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Higher Self Studio admin control panel for managing users, products, and revenue insights." />
+    <title>Admin Control Panel — Higher Self Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <script defer src="assets/js/admin.js"></script>
+  </head>
+  <body class="admin-body">
+    <div class="page-shell admin-shell">
+      <header class="site-header">
+        <a class="brand" href="index.html">
+          <span class="brand-mark" aria-hidden="true">✦</span>
+          <span class="brand-name">Higher Self Studio</span>
+        </a>
+        <nav class="site-nav" aria-label="Admin">
+          <ul class="nav-links">
+            <li><span class="active">Control Panel</span></li>
+            <li><a class="cta" href="/">View Site</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <main class="admin-main" data-admin-content>
+        <section class="admin-header">
+          <div>
+            <p class="eyebrow">Admin control</p>
+            <h1>Higher Self Studio Control Panel</h1>
+            <p>Manage members, offerings, and performance metrics from a single sacred command centre.</p>
+          </div>
+          <button class="btn ghost" type="button" data-admin-logout>Sign out</button>
+        </section>
+
+        <div class="admin-tabs" role="tablist">
+          <button class="admin-tab is-active" role="tab" aria-selected="true" data-tab="users">Users</button>
+          <button class="admin-tab" role="tab" aria-selected="false" data-tab="products">Products</button>
+          <button class="admin-tab" role="tab" aria-selected="false" data-tab="stats">Stats</button>
+        </div>
+
+        <section class="admin-panel" data-panel="users" role="tabpanel">
+          <header class="admin-panel-header">
+            <div>
+              <h2>Members & Purchases</h2>
+              <p>Review every soul in the studio, including their product trail and investment total.</p>
+            </div>
+            <button class="btn secondary" type="button" data-action="start-add-user">Add user</button>
+          </header>
+          <div class="admin-table-wrapper">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Purchases</th>
+                  <th scope="col">Total Spent</th>
+                  <th scope="col" class="admin-table-actions">Actions</th>
+                </tr>
+              </thead>
+              <tbody data-users-body>
+                <tr class="is-empty">
+                  <td colspan="5">No users yet. Call in your first member.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="admin-panel is-hidden" data-panel="products" role="tabpanel" hidden>
+          <header class="admin-panel-header">
+            <div>
+              <h2>Offers & Services</h2>
+              <p>Create, refine, or retire programs and track their purchase momentum.</p>
+            </div>
+            <button class="btn secondary" type="button" data-action="start-add-product">Add product</button>
+          </header>
+          <div class="admin-table-wrapper">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Times Purchased</th>
+                  <th scope="col" class="admin-table-actions">Actions</th>
+                </tr>
+              </thead>
+              <tbody data-products-body>
+                <tr class="is-empty">
+                  <td colspan="5">No products configured yet. Add your first offer.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="admin-panel is-hidden" data-panel="stats" role="tabpanel" hidden>
+          <header class="admin-panel-header">
+            <div>
+              <h2>Studio Performance</h2>
+              <p>Track cumulative sign-ups, offer conversions, and revenue flow at a glance.</p>
+            </div>
+          </header>
+          <div class="stats-grid" data-stats-grid>
+            <article class="stat-card">
+              <h3>Total Users</h3>
+              <p class="stat-value" data-stat-users>—</p>
+            </article>
+            <article class="stat-card">
+              <h3>Products Purchased</h3>
+              <p class="stat-value" data-stat-purchases>—</p>
+            </article>
+            <article class="stat-card">
+              <h3>Total Revenue</h3>
+              <p class="stat-value" data-stat-revenue>—</p>
+            </article>
+          </div>
+          <div class="admin-table-wrapper">
+            <table class="admin-table">
+              <caption>Offer performance overview</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Product</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Times Purchased</th>
+                  <th scope="col">Revenue</th>
+                </tr>
+              </thead>
+              <tbody data-stats-products>
+                <tr class="is-empty">
+                  <td colspan="4">No purchase data yet.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <span class="brand-mark" aria-hidden="true">✦</span>
+            <span>Higher Self Studio — Admin</span>
+            <p>Confidential portal. Guard this frequency.</p>
+          </div>
+        </div>
+        <p class="fineprint">© <span data-year></span> Higher Self Studio.</p>
+      </footer>
+    </div>
+
+    <section class="admin-gate is-hidden" data-admin-gate hidden>
+      <form class="admin-gate-card" data-admin-gate-form>
+        <h2>Admin access required</h2>
+        <p>Enter the studio admin token to enter this control panel.</p>
+        <label class="sr-only" for="admin-token">Admin token</label>
+        <input id="admin-token" name="token" type="password" placeholder="Admin access token" required />
+        <button class="btn primary" type="submit">Unlock control panel</button>
+        <button class="btn ghost" type="button" data-admin-gate-cancel>Cancel</button>
+      </form>
+    </section>
+
+    <div class="admin-toast" role="status" aria-live="polite" data-admin-toast hidden></div>
+  </body>
+</html>
