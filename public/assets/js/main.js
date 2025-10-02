@@ -1,3 +1,5 @@
+const SESSION_KEY = 'hss-session-token';
+
 const initAnimations = () => {
   const animated = document.querySelectorAll('[data-animate]');
   if (!animated.length) return;
@@ -57,6 +59,50 @@ const initNavToggle = () => {
   });
 };
 
+const getSessionToken = () => {
+  try {
+    return localStorage.getItem(SESSION_KEY);
+  } catch (error) {
+    return null;
+  }
+};
+
+const syncAuthNav = () => {
+  const authed = Boolean(getSessionToken());
+  document.querySelectorAll('[data-auth]').forEach((element) => {
+    const state = element.dataset.auth;
+    const show = (state === 'auth' && authed) || (state === 'guest' && !authed);
+    element.hidden = !show;
+    element.setAttribute('aria-hidden', String(!show));
+  });
+};
+
+const handleLogout = (event) => {
+  event.preventDefault();
+  try {
+    localStorage.removeItem(SESSION_KEY);
+  } catch (error) {
+    console.warn('Unable to clear session token', error);
+  }
+  document.dispatchEvent(new CustomEvent('auth:updated'));
+  window.location.href = 'index.html';
+};
+
+const initAuthNav = () => {
+  syncAuthNav();
+
+  document.querySelectorAll('[data-action="logout"]').forEach((node) => {
+    node.addEventListener('click', handleLogout);
+  });
+
+  document.addEventListener('auth:updated', syncAuthNav);
+  window.addEventListener('storage', (event) => {
+    if (event.key === SESSION_KEY) {
+      syncAuthNav();
+    }
+  });
+};
+
 const initFooterYear = () => {
   const yearNode = document.querySelector('[data-year]');
   if (yearNode) {
@@ -109,6 +155,7 @@ const initForms = () => {
 window.addEventListener('DOMContentLoaded', () => {
   initAnimations();
   initNavToggle();
+  initAuthNav();
   initFooterYear();
   initForms();
 });

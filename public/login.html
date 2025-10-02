@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Access your Higher Self Studio account to view purchases and continue your transformation journey." />
+    <title>Login — Higher Self Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <script defer src="assets/js/main.js"></script>
+    <script defer src="assets/js/auth.js"></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header" data-animate="fade">
+        <a class="brand" href="index.html">
+          <span class="brand-mark" aria-hidden="true">✦</span>
+          <span class="brand-name">Higher Self Studio</span>
+        </a>
+        <nav class="site-nav" aria-label="Primary">
+          <button class="nav-toggle" aria-expanded="false" aria-controls="primary-menu">Menu</button>
+          <ul id="primary-menu" class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="programs.html">Programs</a></li>
+            <li><a href="resources.html">Resources</a></li>
+            <li data-auth="guest"><a class="active" href="login.html">Login</a></li>
+            <li data-auth="guest"><a href="register.html">Register</a></li>
+            <li data-auth="auth"><a href="account.html">My Account</a></li>
+            <li data-auth="auth"><a href="#" data-action="logout">Log out</a></li>
+            <li><a class="cta" href="contact.html">Work With Me</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero auth-hero" data-animate="slide-up">
+          <div class="hero-copy">
+            <p class="eyebrow">Existing clients</p>
+            <h1>Welcome back inside the studio.</h1>
+            <p>
+              Sign in to download your assets, review purchases, and keep your ritual cadence aligned with the latest transmissions.
+            </p>
+          </div>
+          <div class="hero-visual" aria-hidden="true"></div>
+        </section>
+
+        <section class="section" data-animate="fade">
+          <div class="auth-grid">
+            <form class="auth-card" data-auth-form="login" novalidate>
+              <h2>Login</h2>
+              <p class="muted">Enter your credentials to re-enter your Higher Self Studio portal.</p>
+
+              <label for="login-email">Email</label>
+              <input id="login-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+
+              <label for="login-password">Password</label>
+              <input id="login-password" name="password" type="password" autocomplete="current-password" placeholder="Your password" required />
+
+              <button class="btn primary" type="submit">Sign in</button>
+              <p class="muted">
+                Need an account?
+                <a href="register.html">Register here</a>.
+              </p>
+              <p class="form-feedback" data-auth-feedback hidden></p>
+            </form>
+
+            <aside class="auth-sidecard" data-animate="slide-up">
+              <h3>Having trouble?</h3>
+              <p>
+                If you’ve joined a program but can’t access your account, email
+                <a href="mailto:hello@higherselfstudio.co">hello@higherselfstudio.co</a> so the studio can reset your credentials.
+              </p>
+              <ul class="meta-list">
+                <li><strong>Security</strong> Passwords are encrypted and stored securely in Neon.</li>
+                <li><strong>Support</strong> Replies land within 72 hours (business days).</li>
+              </ul>
+            </aside>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer" data-animate="fade">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <span class="brand-mark" aria-hidden="true">✦</span>
+            <span>Higher Self Studio</span>
+            <p>Polished, magnetic, luxurious coaching containers for multi-dimensional leaders.</p>
+          </div>
+          <nav aria-label="Footer navigation">
+            <h3>Studio</h3>
+            <ul>
+              <li><a href="about.html">About Val</a></li>
+              <li><a href="programs.html">Programs &amp; Offers</a></li>
+              <li><a href="resources.html">Free Resources</a></li>
+            </ul>
+          </nav>
+          <nav aria-label="Connect">
+            <h3>Connect</h3>
+            <ul>
+              <li><a href="https://www.instagram.com" target="_blank" rel="noreferrer">Instagram</a></li>
+              <li><a href="https://www.youtube.com" target="_blank" rel="noreferrer">YouTube</a></li>
+              <li><a href="mailto:hello@higherselfstudio.co">hello@higherselfstudio.co</a></li>
+            </ul>
+          </nav>
+        </div>
+        <p class="fineprint">© <span data-year></span> Higher Self Studio. All light, all shadow, always rising.</p>
+      </footer>
+    </div>
+  </body>
+</html>

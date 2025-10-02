@@ -22,11 +22,9 @@ export const withErrorBoundary = (fn) => async (req, res) => {
     console.error('[HigherSelfStudio] API error', error);
     const status = error.statusCode || error.status || 500;
     const message =
-      status === 401
-        ? 'Unauthorized'
-        : status === 400
-          ? error.message || 'Bad request'
-          : 'Internal error, please retry shortly.';
+      status >= 400 && status < 500
+        ? error.message || 'Request failed'
+        : 'Internal error, please retry shortly.';
     res.status(status).json({ message });
   }
 };

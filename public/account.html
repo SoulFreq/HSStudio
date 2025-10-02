@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Your Higher Self Studio account dashboard — view purchases, rituals, and membership details." />
+    <title>My Account — Higher Self Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <script defer src="assets/js/main.js"></script>
+    <script defer src="assets/js/auth.js"></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header" data-animate="fade">
+        <a class="brand" href="index.html">
+          <span class="brand-mark" aria-hidden="true">✦</span>
+          <span class="brand-name">Higher Self Studio</span>
+        </a>
+        <nav class="site-nav" aria-label="Primary">
+          <button class="nav-toggle" aria-expanded="false" aria-controls="primary-menu">Menu</button>
+          <ul id="primary-menu" class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="programs.html">Programs</a></li>
+            <li><a href="resources.html">Resources</a></li>
+            <li data-auth="guest"><a href="login.html">Login</a></li>
+            <li data-auth="guest"><a href="register.html">Register</a></li>
+            <li data-auth="auth"><a class="active" href="account.html">My Account</a></li>
+            <li data-auth="auth"><a href="#" data-action="logout">Log out</a></li>
+            <li><a class="cta" href="contact.html">Work With Me</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero auth-hero" data-animate="slide-up">
+          <div class="hero-copy">
+            <p class="eyebrow">Member portal</p>
+            <h1>Welcome back, <span data-account-name>visionary</span>.</h1>
+            <p>
+              Track your programs, download sacred assets, and stay tuned for the next initiation. Your account keeps every purchase and ritual in one place.
+            </p>
+          </div>
+          <div class="hero-visual" aria-hidden="true"></div>
+        </section>
+
+        <section class="section" data-animate="fade">
+          <div class="account-grid">
+            <article class="account-card">
+              <h2>Profile</h2>
+              <dl class="account-list">
+                <div>
+                  <dt>Name</dt>
+                  <dd data-account-fullname>—</dd>
+                </div>
+                <div>
+                  <dt>Email</dt>
+                  <dd><a href="#" data-account-email>—</a></dd>
+                </div>
+                <div>
+                  <dt>Joined</dt>
+                  <dd data-account-created>—</dd>
+                </div>
+                <div>
+                  <dt>Last login</dt>
+                  <dd data-account-last-login>—</dd>
+                </div>
+              </dl>
+              <a class="btn secondary" href="mailto:hello@higherselfstudio.co">Update my details</a>
+            </article>
+
+            <article class="account-card">
+              <h2>Purchases</h2>
+              <div data-account-purchases>
+                <p class="muted">No purchases yet. Explore the <a href="programs.html">programs &amp; offers</a> when you're ready.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer" data-animate="fade">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <span class="brand-mark" aria-hidden="true">✦</span>
+            <span>Higher Self Studio</span>
+            <p>Polished, magnetic, luxurious coaching containers for multi-dimensional leaders.</p>
+          </div>
+          <nav aria-label="Footer navigation">
+            <h3>Studio</h3>
+            <ul>
+              <li><a href="about.html">About Val</a></li>
+              <li><a href="programs.html">Programs &amp; Offers</a></li>
+              <li><a href="resources.html">Free Resources</a></li>
+            </ul>
+          </nav>
+          <nav aria-label="Connect">
+            <h3>Connect</h3>
+            <ul>
+              <li><a href="https://www.instagram.com" target="_blank" rel="noreferrer">Instagram</a></li>
+              <li><a href="https://www.youtube.com" target="_blank" rel="noreferrer">YouTube</a></li>
+              <li><a href="mailto:hello@higherselfstudio.co">hello@higherselfstudio.co</a></li>
+            </ul>
+          </nav>
+        </div>
+        <p class="fineprint">© <span data-year></span> Higher Self Studio. All light, all shadow, always rising.</p>
+      </footer>
+    </div>
+  </body>
+</html>

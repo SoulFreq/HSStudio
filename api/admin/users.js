@@ -1,5 +1,7 @@
 import { getClient, withErrorBoundary } from '../../src/lib/db.js';
-import { requireAdmin, parseJsonBody } from '../../src/lib/auth.js';
+import { requireAdmin, parseJsonBody, hashPassword } from '../../src/lib/auth.js';
+
+const normaliseEmail = (email = '') => email.trim().toLowerCase();
 
 const usersHandler = async (req, res) => {
   requireAdmin(req);
@@ -35,19 +37,31 @@ const usersHandler = async (req, res) => {
   }
 
   if (req.method === 'POST') {
-    const { full_name: fullName, email, is_admin: isAdmin } = parseJsonBody(req);
-    if (!fullName || !email) {
-      const error = new Error('Full name and email are required');
-      error.statusCode = 422;
-      throw error;
-    }
+  const { full_name: fullName, email, is_admin: isAdmin, password } = parseJsonBody(req);
+  if (!fullName || !email || !password) {
+    const error = new Error('Full name, email, and password are required');
+    error.statusCode = 422;
+    throw error;
+  }
 
-    const [user] = await sql`
-      insert into studio_users (full_name, email, is_admin)
-      values (${fullName}, ${email}, coalesce(${isAdmin ?? false}::boolean, false))
+  const normalisedEmail = normaliseEmail(email);
+
+  const { hash, salt } = hashPassword(password);
+
+  const [user] = await sql`
+      insert into studio_users (full_name, email, is_admin, password_hash, password_salt)
+      values (
+        ${fullName},
+        ${normalisedEmail},
+        coalesce(${isAdmin ?? false}::boolean, false),
+        ${hash},
+        ${salt}
+      )
       on conflict (email) do update set
         full_name = excluded.full_name,
         is_admin = excluded.is_admin,
+        password_hash = excluded.password_hash,
+        password_salt = excluded.password_salt,
         updated_at = now()
       returning id, full_name, email, is_admin, created_at;
     `;
@@ -56,19 +70,29 @@ const usersHandler = async (req, res) => {
   }
 
   if (req.method === 'PATCH') {
-    const { id, full_name: fullName, email, is_admin: isAdmin } = parseJsonBody(req);
-    if (!id) {
-      const error = new Error('User id is required');
-      error.statusCode = 422;
-      throw error;
-    }
+  const { id, full_name: fullName, email, is_admin: isAdmin, password } = parseJsonBody(req);
+  if (!id) {
+    const error = new Error('User id is required');
+    error.statusCode = 422;
+    throw error;
+  }
 
-    const [user] = await sql`
+  let passwordHash = null;
+  let passwordSalt = null;
+  if (password) {
+    const result = hashPassword(password);
+    passwordHash = result.hash;
+    passwordSalt = result.salt;
+  }
+
+  const [user] = await sql`
       update studio_users
       set
         full_name = coalesce(${fullName ?? null}, full_name),
-        email = coalesce(${email ?? null}, email),
+        email = coalesce(${email ? normaliseEmail(email) : null}, email),
         is_admin = coalesce(${isAdmin ?? null}::boolean, is_admin),
+        password_hash = coalesce(${passwordHash}, password_hash),
+        password_salt = coalesce(${passwordSalt}, password_salt),
         updated_at = now()
       where id = ${id}
       returning id, full_name, email, is_admin, created_at, updated_at;

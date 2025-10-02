@@ -93,6 +93,10 @@ button:focus-visible {
   outline-offset: 3px;
 }
 
+.muted {
+  color: var(--ink-muted);
+}
+
 .site-header {
   position: sticky;
   top: 0;
@@ -853,6 +857,121 @@ main {
   font-size: clamp(2rem, 4vw, 2.8rem);
   color: var(--ink-100);
   margin: 0;
+}
+
+.auth-grid,
+.account-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: clamp(1.8rem, 5vw, 3rem);
+}
+
+.auth-card,
+.account-card,
+.auth-sidecard {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-700);
+  background: rgba(11, 18, 32, 0.82);
+  padding: clamp(1.8rem, 4vw, 2.6rem);
+  display: grid;
+  gap: 1rem;
+  box-shadow: var(--shadow-soft);
+}
+
+.auth-card h2,
+.account-card h2 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 3.4vw, 2.2rem);
+  font-weight: 500;
+}
+
+.auth-card label,
+.account-card label {
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.auth-card input,
+.account-card input {
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-700);
+  background: rgba(8, 12, 22, 0.88);
+  color: var(--ink-100);
+  font: inherit;
+}
+
+.auth-card .form-feedback {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--blue-400);
+}
+
+.auth-card .form-feedback[data-status="error"] {
+  color: rgba(240, 116, 124, 0.9);
+}
+
+.auth-sidecard h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-family: var(--font-serif);
+  font-weight: 500;
+}
+
+.account-list {
+  display: grid;
+  gap: 1.2rem;
+  margin: 0 0 1rem;
+}
+
+.account-list div {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.account-list dt {
+  font-size: 0.8rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.account-list dd {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--ink-100);
+}
+
+.account-purchase-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.account-purchase-list li {
+  border: 1px solid var(--border-700);
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.2rem;
+  background: rgba(7, 12, 22, 0.75);
+}
+
+.purchase-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  font-size: 1rem;
+}
+
+.purchase-head strong {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 500;
 }
 
 .admin-gate {

@@ -234,9 +234,9 @@
       : [],
   });
 
-  const renderUsers = () => {
-    const { usersBody } = selectors;
-    if (!usersBody) return;
+const renderUsers = () => {
+  const { usersBody } = selectors;
+  if (!usersBody) return;
 
     if (!state.users.length && !state.addingUser) {
       renderPlaceholder(usersBody, 5, 'No users yet. Call in your first member.');
@@ -255,6 +255,8 @@
               </td>
               <td>
                 <input type="email" name="email" value="${escapeHtml(user.email)}" placeholder="Email" />
+                <label class="muted" style="display:block;margin-top:0.7rem;">Reset password</label>
+                <input type="password" name="password" placeholder="New password" minlength="8" />
               </td>
               <td>
                 ${renderPurchases(user.purchases)}
@@ -302,6 +304,8 @@
           </td>
           <td>
             <input type="email" name="email" placeholder="Email" />
+            <label class="muted" style="display:block;margin-top:0.7rem;">Temporary password</label>
+            <input type="password" name="password" placeholder="Minimum 8 characters" minlength="8" required />
           </td>
           <td>
             <label class="muted" style="display:block; margin-bottom:0.4rem;">Admin</label>
@@ -534,23 +538,24 @@
     if (target === 'stats') loadStats();
   };
 
-  const getRowInputs = (row) => {
-    if (!row) return {};
-    const inputs = row.querySelectorAll('input, select, textarea');
-    const payload = {};
-    inputs.forEach((input) => {
-      const name = input.name;
-      if (!name) return;
-      if (input.type === 'checkbox') {
-        payload[name] = input.checked;
-      } else if (input.type === 'number') {
-        payload[name] = input.value === '' ? null : Number(input.value);
-      } else {
-        payload[name] = input.value;
-      }
-    });
-    return payload;
-  };
+const getRowInputs = (row) => {
+  if (!row) return {};
+  const inputs = row.querySelectorAll('input, select, textarea');
+  const payload = {};
+  inputs.forEach((input) => {
+    const name = input.name;
+    if (!name) return;
+    if (input.type === 'checkbox') {
+      payload[name] = input.checked;
+    } else if (input.type === 'number') {
+      payload[name] = input.value === '' ? null : Number(input.value);
+    } else {
+      const value = typeof input.value === 'string' ? input.value.trim() : input.value;
+      payload[name] = value;
+    }
+  });
+  return payload;
+};
 
   const resetUserEditing = () => {
     state.editingUserId = null;
@@ -587,6 +592,10 @@
         showToast('Name and email are required.', 'error');
         return;
       }
+      if (payload.password && payload.password.length < 8) {
+        showToast('New passwords must be at least 8 characters.', 'error');
+        return;
+      }
       try {
         await fetchJSON('/api/admin/users', {
           method: 'PATCH',
@@ -594,6 +603,7 @@
             id,
             full_name: payload.full_name,
             email: payload.email,
+            password: payload.password || undefined,
           }),
         });
         showToast('User updated.', 'success');
@@ -628,6 +638,10 @@
         showToast('Name and email are required.', 'error');
         return;
       }
+      if (!payload.password || payload.password.length < 8) {
+        showToast('Password must be at least 8 characters.', 'error');
+        return;
+      }
       try {
         await fetchJSON('/api/admin/users', {
           method: 'POST',
@@ -635,6 +649,7 @@
             full_name: payload.full_name,
             email: payload.email,
             is_admin: payload.is_admin === 'true',
+            password: payload.password,
           }),
         });
         showToast('User created.', 'success');

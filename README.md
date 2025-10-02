@@ -10,6 +10,10 @@ Sleek, moody Higher Self Studio site skeleton inspired by [higherselfstudio.co](
 │   │   ├── products.js  # Admin CRUD with token auth
 │   │   ├── stats.js     # Dashboard metrics endpoint
 │   │   └── users.js     # Admin CRUD with token auth
+│   ├── auth/
+│   │   ├── login.js     # Email/password login issuing signed session tokens
+│   │   ├── profile.js   # Returns authenticated member profile + purchases
+│   │   └── register.js  # Member registration with encrypted password storage
 │   ├── courses.js       # Sample query for future program listings
 │   ├── products.js      # Sample query for digital suite
 │   └── waitlist.js      # Opt-in capture powered by Neon
@@ -18,12 +22,16 @@ Sleek, moody Higher Self Studio site skeleton inspired by [higherselfstudio.co](
 │   │   ├── css/main.css # Luxury serif/sans styling, motion, gradients
 │   │   └── js/
 │   │       ├── admin.js # Control panel tabs, inline CRUD, token gate
-│   │       └── main.js  # Scroll reveals, nav toggle, form stubs
+│   │       ├── auth.js  # Login/register/account flows + session sync
+│   │       └── main.js  # Scroll reveals, nav toggle, form stubs, nav auth state
 │   ├── index.html       # Homepage — hero, framework, freebie, CTA
 │   ├── about.html       # Val's hero journey + modality fusion
 │   ├── programs.html    # Flagship program, digital suite, 1:1
 │   ├── resources.html   # Sacred AF download + newsletter hub
 │   ├── contact.html     # Application-style inquiry form
+│   ├── login.html       # Member sign-in portal
+│   ├── register.html    # Member registration experience
+│   ├── account.html     # Authenticated member dashboard
 │   └── admin.html       # Token-gated control panel (users, products, stats)
 ├── src/
 │   └── lib/db.js        # Neon client helper + error boundary
@@ -39,9 +47,10 @@ Sleek, moody Higher Self Studio site skeleton inspired by [higherselfstudio.co](
    ```bash
    export NEON_DATABASE_URL="postgres://user:password@host/db"
    ```
-3. Provide an admin token for privileged API requests:
+3. Provide secrets for privileged API requests:
    ```bash
    export ADMIN_TOKEN="super-secret-string"
+   export SESSION_SECRET="replace-with-long-random-string"
    ```
 4. Run locally with Vercel CLI: `vercel dev`
 
@@ -84,8 +93,11 @@ The static site is served from `public`, while API requests (e.g. `POST /api/wai
     full_name text not null,
     email text unique not null,
     is_admin boolean default false,
+    password_hash text not null,
+    password_salt text not null,
     created_at timestamptz default now(),
-    updated_at timestamptz
+    updated_at timestamptz,
+    last_login_at timestamptz
   );
 
   create table if not exists product_orders (
@@ -106,3 +118,4 @@ The static site is served from `public`, while API requests (e.g. `POST /api/wai
 - Add analytics, SEO meta expansions, and motion polish (GSAP/Framer Motion) as desired.
 - Seed `studio_users`, `digital_products`, and `product_orders` with production data so the admin dashboard has real insight out of the gate.
 - Rotate the `ADMIN_TOKEN` whenever access changes and share it via a secure channel only with trusted operators.
+- Wire up password reset + email delivery so members can self-serve credential changes.
