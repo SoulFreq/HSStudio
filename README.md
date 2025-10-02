@@ -1,4 +1,4 @@
- # HigherSelfStudio
+# HigherSelfStudio
 
 Sleek, moody Higher Self Studio site skeleton inspired by [higherselfstudio.co](https://higherselfstudio.co) with Neon-backed API stubs, Vercel routing, and all static pages served from `public/`.
 

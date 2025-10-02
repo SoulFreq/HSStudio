@@ -130,5 +130,3 @@ export const parseJsonBody = (req) => {
     throw err;
   }
 };
-*** End Patch
-PATCH
